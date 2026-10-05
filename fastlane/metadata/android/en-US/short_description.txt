@@ -1,0 +1,1 @@
+Offline inventory and shelf stock manager between home and shop.

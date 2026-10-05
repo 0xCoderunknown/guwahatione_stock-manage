@@ -1,0 +1,9 @@
+StockHome is a minimalist, privacy-first, offline-first Flutter application designed for small shop owners, merchants, and independent sellers to easily track stock movement between backroom/home storage and active shop shelves.
+
+Key Features:
+• Company & Brand Grouping: Categorize items by company or supplier, with customized color accents and badges.
+• Visual Capacity Levels: Set capacity thresholds (1–99) with live visual progress bars showing healthy, moderate, and low stock status at a glance.
+• Quick Movements: Rapidly log incoming stock ("Add to Home") or shelf transfers ("Move to Shop") with instant search.
+• 1-Tap Undo: Revert accidental count adjustments or erroneous taps instantly from the confirmation notification.
+• Transaction History: Chronological audit trail showing past actions, timestamps, and deltas (+/-).
+• Offline & Private: Zero telemetry, zero tracking, zero internet permissions required for operation. All data stays strictly on your device using fast Hive local storage.

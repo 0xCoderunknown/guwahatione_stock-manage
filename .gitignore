@@ -1,0 +1,60 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+analysis.txt
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# Flutter / Dart / Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+
+# Android build and local configuration
+android/.gradle/
+android/local.properties
+android/captures/
+android/gradlew
+android/gradlew.bat
+GeneratedPluginRegistrant.java
+
+# Keystores and sensitive signing credentials
+*.keystore
+*.jks
+key.properties
+
+# Environment variables & local secrets
+.env
+*.env
+.env.*
+
+# Symbolication & Obfuscation
+app.*.symbols
+app.*.map.json
+
+# Android build outputs
+/android/app/debug
+/android/app/profile
+/android/app/release

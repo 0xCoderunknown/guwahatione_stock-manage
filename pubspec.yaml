@@ -1,0 +1,37 @@
+name: stock_manage
+description: "A minimalist Flutter stock management app for tracking inventory between home and shop shelves."
+publish_to: 'none'
+version: 0.1.0+1
+
+homepage: https://github.com/0xCoderunknown/guwahatione_stock-manage
+repository: https://github.com/0xCoderunknown/guwahatione_stock-manage
+issue_tracker: https://github.com/0xCoderunknown/guwahatione_stock-manage/issues
+
+environment:
+  sdk: ^3.13.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^2.0.0
+  flutter_riverpod: ^2.6.1
+  hive_flutter: ^1.1.0
+  intl: ^0.20.3
+  uuid: ^4.6.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.14.4
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  # assets:
+  #   - assets/icon/
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: false
+  image_path: "assets/icon/icon.png"
+  min_sdk_android: 21
