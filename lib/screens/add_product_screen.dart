@@ -160,7 +160,9 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog> {
     await box.put(newProduct.id, newProduct);
 
     // SAVE STICKY SELECTION
-    ref.read(lastSelectedCompanyProvider.notifier).state = _selectedCompanyId;
+    ref
+        .read(lastSelectedCompanyProvider.notifier)
+        .setCompanyId(_selectedCompanyId);
 
     if (mounted) Navigator.pop(context);
   }

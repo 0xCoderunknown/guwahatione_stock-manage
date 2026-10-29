@@ -34,6 +34,7 @@ analysis.txt
 
 # Android build and local configuration
 android/.gradle/
+android/build/
 android/local.properties
 android/captures/
 android/gradlew
