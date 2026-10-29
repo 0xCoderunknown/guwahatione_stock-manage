@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:uuid/uuid.dart';
+
 import '../data/hive_setup.dart';
 import 'color_picker_widget.dart';
 
@@ -89,10 +90,7 @@ class _AddCompanyDialogState extends State<AddCompanyDialog> {
           onPressed: () => Navigator.pop(context),
           child: const Text('Cancel'),
         ),
-        FilledButton(
-          onPressed: _saveCompany,
-          child: const Text('Save'),
-        ),
+        FilledButton(onPressed: _saveCompany, child: const Text('Save')),
       ],
     );
   }

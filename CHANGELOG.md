@@ -1,11 +1,24 @@
-# Changelog
+﻿# Changelog
 
 All notable changes to this project will be documented in this file.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), adhering to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Dates strictly follow the Indian numerical date standard (`DD-MM-YYYY`).
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+---
 
-## [0.1.0] - 2026-10-05
+## [0.1.1] — 29-10-2026 — AI Governance Constitution, Schema Contracts & Invariant Gate
+
+### Added
+- **AI Operating Constitution (`AGENTS.md`):** Configured with ClinicOS-grade operating constitution, Strict PM Interaction Protocol (Clarify & Plan First -> Respect Conventions -> Verification Gate), and explicit Codebase Red Lines.
+- **Hive Storage Contracts (`docs/SCHEMA_AND_MODELS.md`):** Single source of truth documenting Hive box schemas (`companies`, `products`, `history`), typeIds, and field indices.
+- **Master Roadmap Backlog (`docs/MASTER_BACKLOG.md`):** Dedicated unbuilt product roadmap documenting CSV export/import, low-stock status badges, barcode lookup, and explicit Anti-Goals.
+- **Automated Invariant Gate (`tool/verify_invariants.dart`):** Single command verifying repository formatting, <400 line limits, 100% offline pledge (no network SDKs or release internet permissions), `flutter analyze` (0 warnings), and test suite pass rate.
+- **Test Suite Expansion (9 → 14 Tests):**
+  - Added `test/stock_logic_test.dart` verifying non-negative stock clamping, target thresholds (1–99), health status ratios, and history deltas.
+  - Added `test/dashboard_screen_test.dart` widget test verifying all 5 grid navigation cards and appbar rendering.
+
+---
+
+## [0.1.0] — 05-10-2026 — Initial Release
 
 ### Added
 - Multi-company / supplier inventory tracking.

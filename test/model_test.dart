@@ -4,10 +4,7 @@ import 'package:stock_manage/data/hive_setup.dart';
 void main() {
   group('Model Tests', () {
     test('Product creation with defaults', () {
-      final product = Product(
-        companyId: 'company-123',
-        name: 'Test Product',
-      );
+      final product = Product(companyId: 'company-123', name: 'Test Product');
 
       expect(product.id, isNotEmpty);
       expect(product.companyId, 'company-123');
@@ -17,10 +14,7 @@ void main() {
     });
 
     test('Company creation with default auto-generated id', () {
-      final company = Company(
-        name: 'Acme Corp',
-        colorValue: 0xFF123456,
-      );
+      final company = Company(name: 'Acme Corp', colorValue: 0xFF123456);
 
       expect(company.id, isNotEmpty);
       expect(company.name, 'Acme Corp');

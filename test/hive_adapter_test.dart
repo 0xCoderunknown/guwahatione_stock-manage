@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stock_manage/data/hive_setup.dart';
@@ -9,9 +10,15 @@ void main() {
   setUp(() async {
     tempDir = await Directory.systemTemp.createTemp('hive_test_');
     Hive.init(tempDir.path);
-    if (!Hive.isAdapterRegistered(0)) Hive.registerAdapter(CompanyAdapter());
-    if (!Hive.isAdapterRegistered(1)) Hive.registerAdapter(ProductAdapter());
-    if (!Hive.isAdapterRegistered(2)) Hive.registerAdapter(HistoryItemAdapter());
+    if (!Hive.isAdapterRegistered(0)) {
+      Hive.registerAdapter(CompanyAdapter());
+    }
+    if (!Hive.isAdapterRegistered(1)) {
+      Hive.registerAdapter(ProductAdapter());
+    }
+    if (!Hive.isAdapterRegistered(2)) {
+      Hive.registerAdapter(HistoryItemAdapter());
+    }
   });
 
   tearDown(() async {
@@ -24,7 +31,11 @@ void main() {
   group('Hive Adapter Persistence Tests', () {
     test('Company roundtrip persistence in Hive box', () async {
       final box = await Hive.openBox<Company>('test_companies');
-      final company = Company(id: 'c-1', name: 'Alpha Traders', colorValue: 0xFF4285F4);
+      final company = Company(
+        id: 'c-1',
+        name: 'Alpha Traders',
+        colorValue: 0xFF4285F4,
+      );
       await box.put(company.id, company);
 
       final retrieved = box.get('c-1');

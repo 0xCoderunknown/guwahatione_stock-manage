@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'data/hive_setup.dart';
 import 'screens/dashboard_screen.dart';
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../data/hive_setup.dart';
 import '../provider/providers.dart';
 import '../utils/stock_input_formatter.dart';

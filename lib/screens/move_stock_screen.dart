@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 import '../data/hive_setup.dart';
 import '../utils/stock_input_formatter.dart';
 
@@ -126,7 +127,9 @@ class _MoveStockScreenState extends State<MoveStockScreen> {
               if (currentProduct == null) {
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Cannot undo: Product was deleted')),
+                    const SnackBar(
+                      content: Text('Cannot undo: Product was deleted'),
+                    ),
                   );
                 }
                 return;
@@ -144,8 +147,9 @@ class _MoveStockScreenState extends State<MoveStockScreen> {
                 date: DateTime.now(),
                 actionType:
                     'Undo: ${wasMovingToShop ? "Moved to Shop" : "Added to Home"}',
-                quantityChange:
-                    wasMovingToShop ? quantityMoved : -quantityMoved,
+                quantityChange: wasMovingToShop
+                    ? quantityMoved
+                    : -quantityMoved,
               );
               await historyBox.add(undoHistoryItem);
               if (historyBox.length > 100) {

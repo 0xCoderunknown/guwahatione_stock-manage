@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 import '../widgets/edit_company_dialog.dart';
 import 'product_list_screen.dart';
 

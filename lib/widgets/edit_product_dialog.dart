@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 import '../data/hive_setup.dart';
 import '../utils/stock_input_formatter.dart';
 
@@ -57,7 +58,9 @@ class _EditProductDialogState extends State<EditProductDialog> {
     );
 
     if (isDuplicate) {
-      setState(() => _nameError = 'Product name already exists in this company');
+      setState(
+        () => _nameError = 'Product name already exists in this company',
+      );
       return;
     }
 
@@ -113,10 +116,7 @@ class _EditProductDialogState extends State<EditProductDialog> {
           onPressed: () => Navigator.pop(context),
           child: const Text('Cancel'),
         ),
-        FilledButton(
-          onPressed: _saveProduct,
-          child: const Text('Save'),
-        ),
+        FilledButton(onPressed: _saveProduct, child: const Text('Save')),
       ],
     );
   }

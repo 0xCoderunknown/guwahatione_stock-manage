@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 import '../widgets/edit_product_dialog.dart';
 import '../data/hive_setup.dart';
 import 'move_stock_screen.dart';
@@ -26,10 +27,12 @@ class ProductListScreen extends StatelessWidget {
               .where((p) => p.companyId == companyId)
               .toList();
           products.sort((a, b) {
-            final double stockA =
-                a.targetStock <= 0 ? 0.0 : a.stock / a.targetStock;
-            final double stockB =
-                b.targetStock <= 0 ? 0.0 : b.stock / b.targetStock;
+            final double stockA = a.targetStock <= 0
+                ? 0.0
+                : a.stock / a.targetStock;
+            final double stockB = b.targetStock <= 0
+                ? 0.0
+                : b.stock / b.targetStock;
             return stockA.compareTo(stockB);
           });
 
@@ -168,9 +171,8 @@ class ProductListScreen extends StatelessWidget {
                 Navigator.pop(dialogContext);
               }
               if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Deleted $name')),
-                );
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text('Deleted $name')));
               }
             },
             child: const Text('Delete'),
