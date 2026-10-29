@@ -1,7 +1,7 @@
-﻿name: stock_manage
+name: stock_manage
 description: "A minimalist Flutter stock management app for tracking inventory between home and shop shelves."
 publish_to: 'none'
-version: 0.1.1+2
+version: 0.1.2+3
 
 homepage: https://github.com/0xCoderunknown/guwahatione_stock-manage
 repository: https://github.com/0xCoderunknown/guwahatione_stock-manage

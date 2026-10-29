@@ -1,7 +1,28 @@
-﻿# Changelog
+# Changelog
 
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), adhering to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Dates strictly follow the Indian numerical date standard (`DD-MM-YYYY`).
+
+---
+
+## [0.1.2] — 30-10-2026 — MoveStock Decomposition, Riverpod 3 Migration & Low-Stock Alerts (FEAT-02)
+
+### Added
+- **Low-Stock Warning Badges & Filter Chip (FEAT-02):**
+  - Added filter chips (`[All]` and `[⚠️ Needs Restock]`) in `ProductListScreen` for rapid depletion triage.
+  - Added visual restock warning pill badge on low-stock item cards.
+  - Added inventory health summary banner on `DashboardScreen` displaying active restock alert counts.
+- **Decomposed Presentation Architecture (<400 LOC Enforcement):**
+  - Extracted `StockLevelDisplay` (36 LOC) in `lib/widgets/stock_level_display.dart`.
+  - Extracted `StockTransferCard` (101 LOC) in `lib/widgets/stock_transfer_card.dart`.
+  - Reduced `MoveStockScreen` from 373 lines down to 256 lines for comfortable headroom.
+- **Unit & Widget Test Expansion (14 → 16 Tests):**
+  - Added `test/stock_level_display_test.dart` widget test.
+  - Added low-stock depletion threshold unit tests in `test/stock_logic_test.dart`.
+
+### Changed
+- **Riverpod 3 Migration:** Migrated `lastSelectedCompanyProvider` to modern `NotifierProvider` / `Notifier` architecture.
+- **Build Artifact Hygiene:** Added `android/build/` to `.gitignore`.
 
 ---
 

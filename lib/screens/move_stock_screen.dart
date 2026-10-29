@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../data/hive_setup.dart';
-import '../utils/stock_input_formatter.dart';
+import '../widgets/stock_level_display.dart';
+import '../widgets/stock_transfer_card.dart';
 
 class MoveStockScreen extends StatefulWidget {
   // OPTIONAL: If provided, the screen starts with this product selected
@@ -16,18 +17,14 @@ class MoveStockScreen extends StatefulWidget {
 
 class _MoveStockScreenState extends State<MoveStockScreen> {
   String? _selectedProductId;
-  final TextEditingController _quantityController = TextEditingController();
-  final TextEditingController _searchController =
-      TextEditingController(); // NEW: Search
-  bool _isMovingToShop = false;
-  String _searchQuery = ''; // NEW: Search Query state
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
 
   @override
   void initState() {
     super.initState();
     _selectedProductId = widget.initialProductId;
 
-    // NEW: Listen to search changes
     _searchController.addListener(() {
       setState(() {
         _searchQuery = _searchController.text.trim().toLowerCase();
@@ -37,32 +34,15 @@ class _MoveStockScreenState extends State<MoveStockScreen> {
 
   @override
   void dispose() {
-    _quantityController.dispose();
     _searchController.dispose();
     super.dispose();
   }
 
-  void _updateStock(Product product) async {
-    final input = int.tryParse(_quantityController.text);
-    if (input == null || input <= 0) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter a valid positive quantity')),
-      );
-      return;
-    }
-
-    // VALIDATION: 1-99
-    if (input > 99) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Quantity cannot exceed 99')),
-      );
-      return;
-    }
-
-    // Capture values at the time of operation to avoid state race conditions on Undo
-    final bool wasMovingToShop = _isMovingToShop;
-    final int quantityMoved = input;
-
+  void _executeTransfer(
+    Product product,
+    int quantityMoved,
+    bool wasMovingToShop,
+  ) async {
     int newStock = product.stock;
     String actionMessage = '';
 
@@ -111,10 +91,9 @@ class _MoveStockScreenState extends State<MoveStockScreen> {
     if (historyBox.length > 100) {
       await historyBox.deleteAt(0);
     }
-    // -------------------
 
     if (mounted) {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar(); // Clear previous
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           duration: const Duration(seconds: 3),
@@ -168,8 +147,6 @@ class _MoveStockScreenState extends State<MoveStockScreen> {
 
       if (widget.initialProductId != null) {
         Navigator.pop(context);
-      } else {
-        _quantityController.clear();
       }
     }
   }
@@ -256,110 +233,17 @@ class _MoveStockScreenState extends State<MoveStockScreen> {
                 const SizedBox(height: 24),
 
                 if (selectedProduct != null) ...[
-                  // 2. Stock Display
-                  Builder(
-                    builder: (context) {
-                      final target = selectedProduct.targetStock;
-                      final double fillRate = target <= 0
-                          ? 0.0
-                          : (selectedProduct.stock / target).clamp(0.0, 1.0);
-                      final bool isLowStock =
-                          target > 0 && selectedProduct.stock < (target / 4);
-
-                      return Center(
-                        child: Column(
-                          children: [
-                            const Text(
-                              'Current Stock',
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            Text(
-                              '${selectedProduct.stock} / ${selectedProduct.targetStock}',
-                              style: const TextStyle(
-                                fontSize: 48,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 40,
-                                vertical: 8,
-                              ),
-                              child: LinearProgressIndicator(
-                                value: fillRate,
-                                color: isLowStock ? Colors.red : Colors.green,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                  // 2. Stock Display Widget
+                  StockLevelDisplay(product: selectedProduct),
 
                   const SizedBox(height: 24),
 
-                  // 3. Action Toggle
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ChoiceChip(
-                          label: const Center(child: Text('Add to Home')),
-                          selected: !_isMovingToShop,
-                          onSelected: (selected) {
-                            if (selected) {
-                              setState(() => _isMovingToShop = false);
-                            }
-                          },
-                          selectedColor: Colors.green.shade100,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: ChoiceChip(
-                          label: const Center(child: Text('Move to Shop')),
-                          selected: _isMovingToShop,
-                          onSelected: (selected) {
-                            if (selected) {
-                              setState(() => _isMovingToShop = true);
-                            }
-                          },
-                          selectedColor: Colors.red.shade100,
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  // 4. Quantity Input
-                  TextField(
-                    controller: _quantityController,
-                    keyboardType: TextInputType.number,
-                    autofocus: true,
-                    inputFormatters: StockInputFormatter.formatters,
-                    decoration: InputDecoration(
-                      labelText: 'Quantity',
-                      border: const OutlineInputBorder(),
-                      prefixIcon: Icon(
-                        _isMovingToShop ? Icons.remove : Icons.add,
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  // 5. Submit Button
-                  FilledButton(
-                    onPressed: () => _updateStock(selectedProduct),
-                    style: FilledButton.styleFrom(
-                      backgroundColor: _isMovingToShop
-                          ? Colors.red.shade700
-                          : Colors.green.shade700,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                    ),
-                    child: Text(
-                      _isMovingToShop ? 'Move to Shop' : 'Add to Home',
-                      style: const TextStyle(fontSize: 18),
+                  // 3. Stock Transfer Card
+                  StockTransferCard(
+                    onTransfer: (quantity, isMovingToShop) => _executeTransfer(
+                      selectedProduct,
+                      quantity,
+                      isMovingToShop,
                     ),
                   ),
                 ],

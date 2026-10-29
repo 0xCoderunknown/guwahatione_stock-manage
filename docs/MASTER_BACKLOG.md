@@ -1,4 +1,4 @@
-﻿# 🎯 Stock Manage — Master Roadmap & Product Backlog
+# 🎯 Stock Manage — Master Roadmap & Product Backlog
 
 > **Single Source of Truth** for unbuilt inventory systems, QOL enhancements, pending workflows, and non-negotiable architectural boundaries.  
 > Shipped releases and version history are recorded chronologically in [`CHANGELOG.md`](../CHANGELOG.md).  
@@ -26,7 +26,7 @@ Targeted, self-contained enhancements that eliminate shopkeeper friction without
 
 ### FEAT-02: Low Stock Warning Badges & Filter Chip
 - **Domain:** Dashboard & Stock Status
-- **Status:** Planned
+- **Status:** Completed in v0.1.2
 - **Specification:**
   1. Add a quick-filter chip on `ProductListScreen`: `[⚠️ Needs Restock]` that filters products where `stock <= (targetStock * 0.2)`.
   2. Display prominent low-stock count chip on `DashboardScreen`.

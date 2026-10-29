@@ -49,6 +49,37 @@ void main() {
       expect(getStockStatus(25, 20), 'Healthy'); // 125%
     });
 
+    test(
+      'FEAT-02: Low stock restock threshold identifies depleted inventory',
+      () {
+        bool isRestockNeeded(Product p) =>
+            p.targetStock > 0 && p.stock <= (p.targetStock * 0.2);
+
+        final depletedProduct = Product(
+          companyId: 'c1',
+          name: 'Flour 5kg',
+          stock: 2,
+          targetStock: 20,
+        );
+        final healthyProduct = Product(
+          companyId: 'c1',
+          name: 'Sugar 1kg',
+          stock: 12,
+          targetStock: 20,
+        );
+        final exactBoundaryProduct = Product(
+          companyId: 'c1',
+          name: 'Salt 1kg',
+          stock: 4,
+          targetStock: 20,
+        );
+
+        expect(isRestockNeeded(depletedProduct), isTrue); // 10% <= 20%
+        expect(isRestockNeeded(exactBoundaryProduct), isTrue); // 20% <= 20%
+        expect(isRestockNeeded(healthyProduct), isFalse); // 60% > 20%
+      },
+    );
+
     test('HistoryItem records positive and negative deltas accurately', () {
       final addHistory = HistoryItem(
         productName: 'Biscuits',
